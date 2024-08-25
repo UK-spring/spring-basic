@@ -3,14 +3,9 @@ package com.example.springbasicmemo.controller;
 import com.example.springbasicmemo.dto.MemoRequestDto;
 import com.example.springbasicmemo.dto.MemoResponseDto;
 import com.example.springbasicmemo.entity.Memo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/memos") // Prefix
@@ -29,6 +24,21 @@ public class MemoController {
         memoList.put(memoId, memo);
 
         return new MemoResponseDto(memo);
+    }
+
+    @GetMapping
+    public List<MemoResponseDto> findAllMemos() {
+
+        List<MemoResponseDto> responseList = new ArrayList<>();
+
+        for (Memo memo : memoList.values()) {
+            MemoResponseDto responseDto = new MemoResponseDto(memo);
+            responseList.add(responseDto);
+        }
+
+        // Map To List
+//        responseList = memoList.values().stream().map(MemoResponseDto::new).toList();
+        return responseList;
     }
 
 }
