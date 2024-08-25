@@ -102,7 +102,24 @@ public class MemoController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+        memo.update(requestDto);
+
         return new ResponseEntity<>(new MemoResponseDto(memo), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteMemo(@PathVariable Long id) {
+
+        // memoList의 Key값에 id를 포함하고 있다면
+        if (memoList.containsKey(id)) {
+            // key가 id인 value 삭제
+            memoList.remove(id);
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        // 포함하고 있지 않은 경우
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
