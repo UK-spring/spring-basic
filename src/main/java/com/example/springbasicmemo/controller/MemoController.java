@@ -102,7 +102,7 @@ public class MemoController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        memo.update(requestDto);
+        memo.updateTitle(requestDto);
 
         return new ResponseEntity<>(new MemoResponseDto(memo), HttpStatus.OK);
     }
